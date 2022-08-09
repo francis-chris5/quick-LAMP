@@ -12,7 +12,7 @@
 			##   directory containing this and three  ##
 			##   test files included with it, or      ##
 			##   comment out lines in Test Case       ##
-			##   section. Then run...                 ##
+			##   section. Then run this script...     ##
 			##                                        ##
 			############################################
 
@@ -185,7 +185,6 @@ sudo /opt/tomcat/bin/startup.sh
 
 ### I like to do this stuff as well, 
 ### uses test files included with this bash script
-### assumes shell script ran from folder
 sudo chmod 777 /var/www/html
 mkdir /var/www/html/python
 mkdir /var/www/html/php
@@ -205,3 +204,10 @@ sudo /opt/tomcat/bin/startup.sh
 
 ## WSL: put the IP address of this machine in a broswer (not localhost)
 ## tomcat is on port 8080, manager app at ipAddress:8080/tomcat
+## python scripts run from ipAddress/python/scriptName.py
+
+
+
+
+
+####################  END OF SCRIPT  #################
