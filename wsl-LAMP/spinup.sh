@@ -2,17 +2,17 @@
 
 			############################################
 			##                                        ##
-			##   This is the LAMP stack I like to     ##
-			##   use on AWS and GCP server instances  ##
-			##   as well as on WSL2 for an identical  ##
-			##   test environment as it will be       ##
-			##   deployed to.                         ##
+			##   This is a replica of the LAMP stack  ##
+			##   I like to use on AWS and GCP server  ##
+			##   instances on WSL2 Ubuntu for testing ##
+			##   before deployment.                   ##
 			##                                        ##
-			##   In home directory create wsl-LAMP    ##
-			##   directory containing this and three  ##
-			##   test files included with it, or      ##
-			##   comment out lines in Test Case       ##
-			##   section. Then run this script...     ##
+			##   In home directory of a fresh Ubuntu  ##
+			##   install, create a wsl-LAMP directory ##
+			##   containing this and the test files   ##
+			##   included with it.                    ##
+			##                                        ##
+			##   Then run this script...              ##
 			##                                        ##
 			############################################
 
