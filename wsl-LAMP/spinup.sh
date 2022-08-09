@@ -41,6 +41,15 @@ sudo apt install mariadb-server php-mysql -y
 sudo /etc/init.d/mysql start
 
 	## install phpmyadmin application
+############## SHOULD SKIP USER INPUT STEPS ############
+
+		### there were 2 conf files, put both in wsl-LAMP for next test
+#export DEBIAN_FRONTEND=noninteractive
+#sudo apt install phpmyadmin -yq
+#sudo cp ~/wsl-LAMP/phpmyadmin.conf /etc/dbconfig-common/phpmyadmin.conf
+#sudo dpkg-reconfigure --frontend=noninteractive phpmyadmin
+
+########################################################
 sudo apt install php-bz2 php-gd php-curl -y
 sudo apt install phpmyadmin -y
 
