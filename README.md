@@ -26,8 +26,8 @@ A bash script to quickly spin up the LAMP with Tomcat that I like on an WSL2 Ubu
 
 <h3>Detailed Instructions:</h3>
 <ul>
-  <li>To wipe a WSL instance and start fresh in powershell enter the command: <pre>wsl --unregister <DistroName></pre>, and when you restart the instance it's a brand new machine</li>
-  <li>Download/pull-request this repository (unzip if necessary) and from the home directory in the fresh install of a debain Linux system (only tested on Ubuntu 20.0.4 so far) create a sym-link to the wsl-LAMP folder contained in this repository: <pre>ln -s /mnt/c/<path-to-repository>/wsl-LAMP</pre></li>
+  <li>To wipe a WSL instance and start fresh in powershell enter the command: <pre>wsl --unregister [DISTRO-NAME]</pre>, and when you restart the instance it's a brand new machine</li>
+  <li>Download/pull-request this repository (unzip if necessary) and from the home directory in the fresh install of a debain Linux system (only tested on Ubuntu 20.0.4 so far) create a sym-link to the wsl-LAMP folder contained in this repository: <pre>ln -s /mnt/c/[PATH-TO-REPOSITORY]/wsl-LAMP</pre></li>
     <ul>
       <li>NOTE: the script assumes it can access the files it needs to copy from ~/wsl-LAMP, so the location is important, doing it as a sim-link makes it easier to delete afterwards</li>
       </ul>
