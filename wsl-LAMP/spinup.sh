@@ -41,17 +41,10 @@ sudo apt install mariadb-server php-mysql -y
 sudo /etc/init.d/mysql start
 
 	## install phpmyadmin application
-############## SHOULD SKIP USER INPUT STEPS ############
-
-		### there were 2 conf files, put both in wsl-LAMP for next test
-#export DEBIAN_FRONTEND=noninteractive
-#sudo apt install phpmyadmin -yq
-#sudo cp ~/wsl-LAMP/phpmyadmin.conf /etc/dbconfig-common/phpmyadmin.conf
-#sudo dpkg-reconfigure --frontend=noninteractive phpmyadmin
-
-########################################################
 sudo apt install php-bz2 php-gd php-curl -y
 sudo apt install phpmyadmin -y
+
+
 
 	
 	## change to read/write permission for everyone on a couple config files
@@ -98,9 +91,11 @@ mkdir /var/www/html/python
 	## modify a couple config files to allow cgi scripts in the directory just created
 sudo chmod 666 /etc/apache2/apache2.conf
 sudo chmod 666 /etc/apache2/conf-available/serve-cgi-bin.conf
+sudo chmod 666 /etc/apache2/sites-available/000-default.conf
 
 
 	## modify apache2.conf 
+sudo sed -i '228s/.*/ /' /etc/apache2/apache2.conf
 echo "Options +ExecCGI" >> /etc/apache2/apache2.conf
 echo "AddHandler cgi-script .py" >> /etc/apache2/apache2.conf
 
@@ -110,7 +105,15 @@ sudo sed -i '12s/.*/\t\t<Directory \/var\/www\/html>/' /etc/apache2/conf-availab
 sudo sed -i '13s/.*/\t\t\tAllowOverride None/' /etc/apache2/conf-available/serve-cgi-bin.conf
 sudo sed -i '14s/.*/\t\t\tOptions +ExecCGI/' /etc/apache2/conf-available/serve-cgi-bin.conf
 
-
+	## modify 000-default.conf
+sudo sed -i '29s/.*/ /' /etc/apache2/sites-available/000-default.conf
+sudo sed -i '31s/.*/ /' /etc/apache2/sites-available/000-default.conf
+echo "    <directory /var/www/html/python>" >> /etc/apache2/sites-available/000-default.conf
+echo "        DirectoryIndex index.html index.py" >> /etc/apache2/sites-available/000-default.conf
+echo "    </directory>" >> /etc/apache2/sites-available/000-default.conf
+echo "</VirtualHost>" >> /etc/apache2/sites-available/000-default.conf
+echo " " >> /etc/apahce2/sites-available/000-default.conf
+echo "# vim: syntax=apache ts=4 sw=4 sts=4 sr noet" >> /etc/apache2/sites-available/000-default.conf
 	### NOTES:
 		### if on a WSL Ubuntu system for test environment remember that windows linebreaks won't work in python script run in Linux
 
@@ -176,10 +179,21 @@ sudo /opt/tomcat/bin/shutdown.sh
 sudo /opt/tomcat/bin/startup.sh
 
 
-	### NOTES:
-		### I did not enable tomcat to start automatically yet
-		### run those two commands just above this comment to start it
 
+		### can't seem to make services on WSL 
+			## has to be set as a task on windows system, not sure how to do that from this script
+			## at least make it a single command for now: sudo lamp
+echo "#!/bin/bash" > lamp-start.sh
+echo "" >> lamp-start.sh
+echo "sudo service apache2 start" >> lamp-start.sh
+echo "sudo /etc/init.d/mysql start" >> lamp-start.sh
+echo "sudo /opt/tomcat/bin/startup.sh" >> lamp-start.sh
+
+sudo cp lamp-start.sh /etc/apache2/lamp-start.sh
+sudo rm lamp-start.sh
+sudo chmod 755 /etc/apache2/lamp-start.sh
+
+sudo echo "alias lamp=\"/etc/apache2/lamp-start.sh\"" >> ~/.bashrc
 
 
 
@@ -202,7 +216,7 @@ sudo chmod 777 /opt/tomcat/webapps/ROOT
 cp ~/wsl-LAMP/index.jsp /opt/tomcat/webapps/ROOT/
 
 cp ~/wsl-LAMP/index.php /var/www/html/php/
-cp ~/wsl-LAMP/hello.py /var/www/html/python/
+cp ~/wsl-LAMP/index.py /var/www/html/python/
 
 
 	## restart both servers
