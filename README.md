@@ -43,8 +43,7 @@ A bash script to quickly spin up the LAMP with Tomcat that I like on an WSL2 Ubu
       <li>Only put python cgi scripts into the directory /var/www/html/python</li>
         <ul>
            <li>Remember, if you edit your python scripts on a Windows machine you may get errors for the different line-breaks on the Linux machine, make sure you configure the line-break properly in your editor.</li>
-      </ul>
-    
+        </ul>
     </ul>
   <li>Since can't easily put startup scripts on WSL instances (it has to be a windows scheduled task so I'm not sure how to do that from this script) I created an alias to start everything from a single command: <pre>lamp</pre></li>
 </ul>
