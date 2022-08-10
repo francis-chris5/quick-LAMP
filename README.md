@@ -4,7 +4,7 @@ A bash script to quickly spin up the LAMP with Tomcat that I like on an WSL2 Ubu
 <h1>wsl-LAMP</h1>
 <h3>General Instructions:</h3>
 <small>detailed instructions below...</small>
-<p>Put only the wsl-LAMP folder (not the whole repository) into the home directory on an Ubuntu instance and run the script (still have some inputs for the phpmyadmin installation). Then copy the IP address of the WSL2 Ubuntu instance and paste it in the address bar of a browser (note it is not localhost). Tomcat is listening on port 8080 (still have to create daemon to manage tomcat as a service).</p>
+<p>Put only the wsl-LAMP folder (not the whole repository) into the home directory on an Ubuntu instance and run the script (still have some inputs for the phpmyadmin installation). Then copy the IP address of the WSL2 Ubuntu instance and paste it in the address bar of a browser (note it is not localhost). Tomcat is listening on port 8080.
 
 <ul>Default Locations and Access
   <li>IPAddress --> Apache2 Default Home Page</li>
