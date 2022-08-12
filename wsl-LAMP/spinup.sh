@@ -145,7 +145,7 @@ sudo ufw allow 8080
 		## need to refine this
 sudo chmod 765 /opt/tomcat/*
 
-	## modify tomcat-users.xml configuration file
+	## modify tomcat-users.xml configuration file so there's a default manager and admin users
 sudo sed -i '56s/.*/<role rolename="manager-gui"\/>/' /opt/tomcat/conf/tomcat-users.xml
 sudo chmod 666 /opt/tomcat/conf/tomcat-users.xml
 sudo echo "<user username=\"tomcat\" password=\"tomcat\" roles=\"manager-gui\"/>" >> /opt/tomcat/conf/tomcat-users.xml
@@ -154,6 +154,8 @@ sudo echo "<role rolename=\"admin-gui\"/>" >> /opt/tomcat/conf/tomcat-users.xml
 sudo echo "<role rolename=\"admin-script\"/>" >> /opt/tomcat/conf/tomcat-users.xml
 sudo echo "<user username=\"admin\" password=\"admin\" roles=\"admin-gui,admin-script\"/>" >> /opt/tomcat/conf/tomcat-users.xml
 sudo echo "</tomcat-users>" >> /opt/tomcat/conf/tomcat-users.xml
+
+
 
 
 	## modify context.xml configuration file
@@ -173,6 +175,9 @@ sudo mv /opt/tomcat/webapps/ROOT/favicon.ico /opt/tomcat/webapps/ROOT/tomcat/
 sudo mv /opt/tomcat/webapps/ROOT/index.jsp /opt/tomcat/webapps/ROOT/tomcat/
 sudo mv /opt/tomcat/webapps/ROOT/tomcat.css /opt/tomcat/webapps/ROOT/tomcat/
 sudo mv /opt/tomcat/webapps/ROOT/tomcat.svg /opt/tomcat/webapps/ROOT/tomcat/
+
+
+
 
 	##start tomcat
 sudo /opt/tomcat/bin/shutdown.sh
@@ -196,6 +201,29 @@ sudo chmod 755 /etc/apache2/lamp-start.sh
 sudo echo "alias lamp=\"/etc/apache2/lamp-start.sh\"" >> ~/.bashrc
 
 
+	## it can be very useful to have the IP addresses readily avalailable
+echo "" >> ~/.bashrc	
+echo "" >> ~/.bashrc	
+echo "export apacheIP=\$(/sbin/ip -o -4 addr list eth0 | awk '{print \$4}' | cut -d/ -f1)" >> ~/.bashrc
+echo "export tomcatIP=\$(/sbin/ip -o -4 addr list eth0 | awk '{print \$4}' | cut -d/ -f1):8080" >> ~/.bashrc
+
+	## since testing ajax (without using port# in URL) requires the javascript to know the actual ip address
+		## set first line in javascript to: var localIP="http:123.123.123.123;", this script changes it for dynamic IP addresses, like on wsl
+		## after opening bash terminal and running "lamp" created above, run the command "updateIP" (must uncomment in .bashrc)	
+echo "#!/bin/bash" > updateIP.sh
+echo "" > updateIP.sh
+echo "sudo sed -i '1s/.*/var localIP=\"http:\/\/'\$1'\";/' \$2" >> updateIP.sh
+sudo cp updateIP.sh /var/www/updateIP.sh 
+sudo rm updateIP.sh
+sudo chmod 755 /var/www/updateIP.sh
+
+	## this dynamically changes the ip address the javascript ajax functions make requests to: must set first line in javascript file to a global variable holding this server's ip address (see example .js file in wsl-LAMP folder)
+	## one project at a time, so the command will need modified to the filepath of the current project
+echo "" >> ~/.bashrc
+echo "" >> ~/.bashrc
+echo "### after adding an javascript file containing ajax copy this command and add the filepath to the javascript file" >> ~/.bashrc
+echo "### make sure the first line in the javascript file looks like: var localIP=\"http://172.22.188.197\"; and then use that variable in the ajax request address" >> ~/.bashrc
+echo "# alias updateIP=\"sudo /var/www/updateIP.sh \$apacheIP [filepath to .js with ajax]\"" >> ~/.bashrc
 
 
 
