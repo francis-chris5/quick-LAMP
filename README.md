@@ -1,4 +1,6 @@
 # quick-LAMP
+NOTE: an update to wsl now allows mariadb to be accessed as a service -line 41- but I still have to go through and figure out what else needs changed in the script, phpmyadmin will not install without first starting database.
+
 A bash script to quickly spin up the LAMP with Tomcat that I like on an WSL2 Ubuntu system for a test environment that replicates the setup I like on GCP and AWS server instances.
 
 <h1>wsl-LAMP</h1>
